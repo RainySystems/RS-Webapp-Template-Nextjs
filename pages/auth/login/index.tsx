@@ -40,10 +40,10 @@ export default function Login() {
                     <TabPanels>
                         <TabPanel>
                             <VStack>
-                                <Heading>Anmelden</Heading>
+                                <Heading>Login</Heading>
                                 <Input placeholder="E-Mail" type="email" ref={emailInput} />
                                 <Input placeholder="Passwort" type="password" ref={passwordInput} />
-                                <Button onClick={login}>Sign in</Button>
+                                <Button onClick={login}>Log in</Button>
                             </VStack>
                         </TabPanel>
                         <TabPanel>
