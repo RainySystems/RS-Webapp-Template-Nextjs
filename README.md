@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🔖 RainySystems Template Webapp
 
-## Getting Started
+A Template Webapp with basic functionality built with Next.js and Typescript.
 
-First, run the development server:
+## 🎬 Getting Started
 
-```bash
-npm run dev
-# or
-yarn dev
+### 🤘 Install Appwrite 
+Follow the simple [Installation Guide](https://appwrite.io/docs/installation) to get Appwrite up and running in no time. You can either deploy Appwrite on your local machine or, on any cloud provider of your choice. 
+
+### **Run locally**
+
+Follow these instructions to run the Template app locally:
+
+```sh
+$ git clone https://github.com/RainySystems/RS-Webapp-Template-Nextjs.git
+$ cd RS-Webapp-Template-Nextjs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the following command to generate your `.env.local` vars  
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```sh
+$ cp .env.local.example .env.local
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Now fill in the envrionment variables we discussed above in your `.env.local`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Now run the following commands and you should be good to go 💪🏼 
+```
+$ npm i
+$ npm run dev
+```
 
-## Learn More
+## 🤕 Support 
+If you get stuck anywhere, hop onto our [support channels in discord](https://discord.gg/xWQXX77vqr) and we'd be delighted to help you out 🤝
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+ 
+Readme inspired by [appwrite/demo-todo-with-svelte](https://github.com/appwrite/demo-todo-with-svelte).
