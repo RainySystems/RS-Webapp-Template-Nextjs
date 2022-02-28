@@ -6,7 +6,7 @@ import { sdk } from "../client/backend";
 export let account: Models.User<Models.Preferences>;
 export const app_url = process.env.NEXT_PUBLIC_APP_URL;
 
-export const getCurrentUser = async (arg: void) => {
+export const getCurrentUser = async () => {
     return await sdk.account.get();
 };
 
@@ -27,11 +27,11 @@ export const updateMagicLink = async (userId: string, secret: string) => {
 }
 
 export const createProviderLogin = async (provider: string) => {
-    return await sdk.account.createOAuth2Session(provider, app_url + '/auth/login/');
+   return await sdk.account.createOAuth2Session(provider, app_url + '/auth/login/');
 }
 
 export const sendConfirmationEmail = async () => {
-    return await sdk.account.createVerification(app_url + '/auth/login/verify');
+    return await sdk.account.createVerification(app_url + 'auth/login/verify');
 }
 
 export const updateConfirmationEmail = async (userId: string, secret: string) => {
