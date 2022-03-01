@@ -12,14 +12,15 @@ import {
     ModalOverlay,
     useDisclosure,
     Modal,
-    ModalBody, 
+    ModalBody,
     ModalCloseButton,
     ModalContent,
     ModalFooter,
     ModalHeader,
+    Badge,
 } from '@chakra-ui/react';
 import { getUserDetails, getUserInitialsURL } from 'client/appfunctions';
-import { updateAccountEmail, updateAccountName, updateAccountPassword, useRequireLogin } from 'client/auth';
+import { sendConfirmationEmail, updateAccountEmail, updateAccountName, updateAccountPassword, useRequireLogin } from 'client/auth';
 import { useEffect, useRef, useState } from 'react';
 import { Models } from 'appwrite';
 import { useRouter } from 'next/router';
@@ -67,6 +68,26 @@ export default function UserProfileEdit() {
         oldPasswordInput.current?.value.length >= 8
     ));
 
+    const sendConfirmationEmailHandler = async () => {
+        try {
+            await sendConfirmationEmail();
+            toast({
+                title: "Success",
+                description: "A confirmation email has been sent to your email address.",
+                status: "success",
+                duration: 9000,
+                isClosable: true,
+            });
+        } catch (e: any) {
+            toast({
+                title: "Error",
+                description: "An error occurred while sending the confirmation email. Please try again. Error: " + e.message,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+        }
+    };
 
     const updateAccount = async () => {
         const [a, b, c, d, e] = [
@@ -186,6 +207,17 @@ export default function UserProfileEdit() {
                         </Avatar>
                     </Center>
                 </Stack>
+                <Center>
+                    {data?.emailVerification ? <Badge colorScheme='green'>Verified</Badge> : <Badge colorScheme='red'>Not Verified</Badge>}
+                </Center>
+                {data?.emailVerification ? null :
+                    <Button
+                        onClick={sendConfirmationEmailHandler}
+                        colorScheme={'blue'}
+                    >
+                        Send verification mail
+                    </Button>
+                }
                 <Button
                     onClick={() => {
                         setOverlay(<ProfileOverlay />)
