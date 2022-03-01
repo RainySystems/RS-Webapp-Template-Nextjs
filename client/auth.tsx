@@ -27,7 +27,7 @@ export const updateMagicLink = async (userId: string, secret: string) => {
 }
 
 export const createProviderLogin = async (provider: string) => {
-   return await sdk.account.createOAuth2Session(provider, app_url + '/auth/login/');
+   return await sdk.account.createOAuth2Session(provider, app_url + '/dashboard/', app_url + '/auth/login');
 }
 
 export const sendConfirmationEmail = async () => {
@@ -46,6 +46,21 @@ export const updatePasswordRecoveryEmail = async (userId: string, secret: string
     return await sdk.account.updateRecovery(userId, secret, password, passwordAgain);
 }
 
+export const updateAccountEmail = async (email: string, password: string) => {
+    return await sdk.account.updateEmail(email, password);
+}
+
+export const updateAccountName = async (name: string) => {
+    return await sdk.account.updateName(name);
+}
+
+export const updateAccountPassword = async (password: string, oldPassword: string) => {
+    return await sdk.account.updatePassword(password, oldPassword);
+}
+
+export const logout = async () => {
+    return await sdk.account.deleteSession('current');
+}
 
 export const useRequireLogin = (callback: () => void = () => { }) => {
     const router = useRouter();
