@@ -1,6 +1,6 @@
 {
   "name": "rs-webapp-template-nextjs",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "A Webapp Template built by RainySystems with Next.js and Appwrite",
   "author": "RainyDev@RainySystems",
   "license": "MIT",
