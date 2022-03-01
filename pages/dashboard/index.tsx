@@ -161,8 +161,20 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [data, setData] = useState<Models.User<Models.Preferences>>();
 
   useEffect(() => {
-    getUserDetails().then(setData).catch(console.log);
-  }, []);
+    (async () => {
+        try {
+            setData(await getUserDetails());
+        } catch (e: any) {
+            toast({
+                title: "Error",
+                description: "An error occurred while loading your profile. Please try again. Error: " + e.message,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+        }
+    })();
+}, []);
 
   const router = useRouter();
   const toast = useToast();
