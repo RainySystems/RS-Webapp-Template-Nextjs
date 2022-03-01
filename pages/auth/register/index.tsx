@@ -23,10 +23,12 @@ export default function Register() {
     const router = useRouter();
     const toast = useToast();
 
-    const register = () => {
+    const register = async () => {
         const [a, b, c] = [emailInput.current?.value, passwordInput.current?.value, nameInput.current?.value]
         if (a && b && c)
-            signup(a, b, c).then(() => {
+            try {
+                await signup(a, b, c);
+                router.push("/auth/login");
                 toast({
                     title: "Success",
                     description: "You have successfully registered. Please login.",
@@ -34,8 +36,7 @@ export default function Register() {
                     duration: 9000,
                     isClosable: true,
                 });
-                router.push("/auth/login");
-            }).catch((e) => {
+            } catch (e: any) {
                 toast({
                     title: "Error",
                     description: "An error occurred while registering. Please try again. Error: " + e.message,
@@ -43,32 +44,32 @@ export default function Register() {
                     duration: 9000,
                     isClosable: true,
                 });
-            });
-        }
-
-        return <div>
-            <HStack>
-                <Button onClick={() => { theme.toggleColorMode(); }}>
-                    <FontAwesomeIcon icon={theme.colorMode == "dark" ? faSun : faMoon} />
-                </Button>
-            </HStack>
-            <Center height={"100vh"}>
-                <VStack>
-
-                    <VStack>
-                        <Heading>Register</Heading>
-                        <Spacer />
-                        <Input placeholder="E-Mail" ref={emailInput} onChange={checkRegisterDisabled} type="email" />
-                        <Input type="text" placeholder="Name (IC)" ref={nameInput} onChange={checkRegisterDisabled} />
-                        <Input
-                            placeholder="Passwort"
-                            type="password"
-                            ref={passwordInput}
-                            onChange={checkRegisterDisabled} />
-                        <Input placeholder="Passwort Wiederholen" type="password" ref={passwordInput2} onChange={checkRegisterDisabled} />
-                        <Button disabled={registerDisabled} onClick={register}>Register</Button>
-                    </VStack>
-                </VStack>
-            </Center>
-        </div>;
+            }
     }
+
+    return <div>
+        <HStack>
+            <Button onClick={() => { theme.toggleColorMode(); }}>
+                <FontAwesomeIcon icon={theme.colorMode == "dark" ? faSun : faMoon} />
+            </Button>
+        </HStack>
+        <Center height={"100vh"}>
+            <VStack>
+
+                <VStack>
+                    <Heading>Register</Heading>
+                    <Spacer />
+                    <Input placeholder="E-Mail" ref={emailInput} onChange={checkRegisterDisabled} type="email" />
+                    <Input type="text" placeholder="Name (IC)" ref={nameInput} onChange={checkRegisterDisabled} />
+                    <Input
+                        placeholder="Passwort"
+                        type="password"
+                        ref={passwordInput}
+                        onChange={checkRegisterDisabled} />
+                    <Input placeholder="Passwort Wiederholen" type="password" ref={passwordInput2} onChange={checkRegisterDisabled} />
+                    <Button disabled={registerDisabled} onClick={register}>Register</Button>
+                </VStack>
+            </VStack>
+        </Center>
+    </div>;
+}

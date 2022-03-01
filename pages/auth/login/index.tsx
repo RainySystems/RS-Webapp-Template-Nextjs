@@ -15,7 +15,9 @@ export default function Login() {
     const login = async () => {
         const [a, b] = [emailInput.current?.value, passwordInput.current?.value]
         if (a && b)
-            await signin(a, b).then(() => {
+            try {
+                await signin(a, b);
+                router.push("/");
                 toast({
                     title: "Success",
                     description: "You have successfully logged in. Please wait while we redirect you.",
@@ -23,7 +25,7 @@ export default function Login() {
                     duration: 9000,
                     isClosable: true,
                 });
-            }).catch((e) => {
+            } catch (e: any) {
                 toast({
                     title: "Error",
                     description: "An error occurred while logging in. Please try again. Error: " + e.message,
@@ -31,11 +33,12 @@ export default function Login() {
                     duration: 9000,
                     isClosable: true,
                 });
-            });
+            }
     }
 
-    const loginGithub = () => {
-        createProviderLogin("github").then(async () => {
+    const loginGithub = async () => {
+        try {
+            await createProviderLogin("github");
             toast({
                 title: "Success",
                 description: "You have successfully logged in. Please wait while we redirect you.",
@@ -43,7 +46,7 @@ export default function Login() {
                 duration: 9000,
                 isClosable: true,
             });
-        }).catch((e) => {
+        } catch (e: any) {
             toast({
                 title: "Error",
                 description: "An error occurred while logging in. Please try again. Error: " + e.message,
@@ -52,7 +55,6 @@ export default function Login() {
                 isClosable: true,
             });
         }
-        );
     }
 
     return <div>

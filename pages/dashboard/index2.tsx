@@ -44,7 +44,19 @@ export default function Nav() {
   const [data, setData] = useState<Models.User<Models.Preferences>>();
 
   useEffect(() => {
-    getUserDetails().then(setData).catch(console.log);
+    (async () => {
+      try {
+        setData(await getUserDetails());
+      } catch (e: any) {
+        toast({
+          title: "Error",
+          description: "An error occurred while loading your profile. Please try again. Error: " + e.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    })();
   }, []);
 
   const router = useRouter();
@@ -58,9 +70,11 @@ export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const logoutUser = () => {
-    localStorage.removeItem('cookieFallback');
-    logout().then(() => {
+  const logoutUser = async () => {
+    try {
+      pushTo('/auth/login');
+      await logout();
+      localStorage.removeItem('cookieFallback');
       toast({
         title: 'Success',
         description: 'You have been logged out.',
@@ -68,8 +82,15 @@ export default function Nav() {
         duration: 9000,
         isClosable: true,
       });
-      pushTo('/');
-    });
+    } catch (e: any) {
+      toast({
+        title: "Error",
+        description: "An error occurred while logging out. Please try again. Error: " + e.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
