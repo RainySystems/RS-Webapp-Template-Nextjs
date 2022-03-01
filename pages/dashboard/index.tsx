@@ -162,19 +162,19 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
   useEffect(() => {
     (async () => {
-        try {
-            setData(await getUserDetails());
-        } catch (e: any) {
-            toast({
-                title: "Error",
-                description: "An error occurred while loading your profile. Please try again. Error: " + e.message,
-                status: "error",
-                duration: 9000,
-                isClosable: true,
-            });
-        }
+      try {
+        setData(await getUserDetails());
+      } catch (e: any) {
+        toast({
+          title: "Error",
+          description: "An error occurred while loading your profile. Please try again. Error: " + e.message,
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     })();
-}, []);
+  }, []);
 
   const router = useRouter();
   const toast = useToast();
@@ -182,19 +182,28 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
     router.push(path);
   };
 
-  const logoutUser = () => {
-    localStorage.removeItem('cookieFallback');
-    logout().then(() => {
-        toast({
-            title: 'Success',
-            description: 'You have been logged out.',
-            status: 'success',
-            duration: 9000,
-            isClosable: true,
-        });
-        pushTo('/');
-    });
-};
+  const logoutUser = async () => {
+    try {
+      pushTo('/auth/login');
+      await logout();
+      localStorage.removeItem('cookieFallback');
+      toast({
+        title: 'Success',
+        description: 'You have been logged out.',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (e: any) {
+      toast({
+        title: "Error",
+        description: "An error occurred while logging out. Please try again. Error: " + e.message,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <Flex
