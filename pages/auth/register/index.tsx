@@ -1,7 +1,8 @@
-import { Button, Center, Heading, HStack, Input, Spacer, useColorMode, VStack } from "@chakra-ui/react";
+import { Button, Center, Heading, HStack, Input, Spacer, toast, useColorMode, useToast, VStack } from "@chakra-ui/react";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signup } from "client/auth";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 
 export default function Register() {
@@ -19,11 +20,31 @@ export default function Register() {
         && emailInput.current?.validity.valid
         && nameInput.current?.value)
     );
+    const router = useRouter();
+    const toast = useToast();
 
-    const register = () => {
+    const register = async () => {
         const [a, b, c] = [emailInput.current?.value, passwordInput.current?.value, nameInput.current?.value]
         if (a && b && c)
-            signup(a, b, c);
+            try {
+                await signup(a, b, c);
+                router.push("/auth/login");
+                toast({
+                    title: "Success",
+                    description: "You have successfully registered. Please login.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                });
+            } catch (e: any) {
+                toast({
+                    title: "Error",
+                    description: "An error occurred while registering. Please try again. Error: " + e.message,
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                });
+            }
     }
 
     return <div>
