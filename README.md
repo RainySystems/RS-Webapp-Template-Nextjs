@@ -2,6 +2,9 @@
 
 A Template Webapp with basic functionality built with Next.js and Typescript.
 
+## Demo:
+You can check out a live demo of the project [HERE](https://rs-webapp-template-nextjs.vercel.app/)
+
 ## 🎬 Getting Started
 
 ### 🤘 Install Appwrite 
